@@ -1,7 +1,8 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,7 +10,7 @@ db_url = os.getenv("DB_URL")
 
 engine = create_engine(str(db_url))
 
-SessionLocal = sessionmaker(engine)
+local_session = sessionmaker(engine)
 
 
 class Base(DeclarativeBase):
@@ -17,6 +18,6 @@ class Base(DeclarativeBase):
 
 
 def check_connection():
-    from .models.game import Game as Game
+    from sgr.storage.models.game import Game as Game
 
     print(Game)

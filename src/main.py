@@ -1,3 +1,3 @@
-import sgr.storage.database as database
+from sgr.storage import database
 
 database.check_connection()

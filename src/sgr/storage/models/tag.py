@@ -1,9 +1,13 @@
-from sqlalchemy import String, DateTime, ForeignKey, Integer
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+from sqlalchemy import String
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from sgr.storage.database import Base
-from sgr.storage.models.game import Game
-from sgr.storage.models.game_tag import GameTag
+if TYPE_CHECKING:
+    from sgr.storage.models.game import Game
+    from sgr.storage.models.game_tag import GameTag
 
 
 class Tag(Base):
@@ -13,7 +17,7 @@ class Tag(Base):
 
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
 
-    game_associations: Mapped[list[GameTag]] = relationship(
+    game_associations: Mapped[list["GameTag"]] = relationship(
         back_populates="tag",
         cascade="all, delete-orphan",
     )
